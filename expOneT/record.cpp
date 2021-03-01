@@ -244,3 +244,98 @@ void record::painter() {
 		}
 	}
 }
+
+//menu
+void record::userEventAction(int key) {
+	switch (key)
+	{
+		// reset
+	case '0':
+		vec.clear();
+		glClearColor(1.0, 1.0, 1.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// reset vars
+		memset(last, 0, sizeof(last));
+		pnum = -1;
+		en_select = -1;
+		en_move = -1;
+		break;
+
+		// triangle
+	case '1':
+		// create new record
+		newvec = new int[len];
+		memset(newvec, 0, sizeof(newvec));
+
+		// set global values 
+		pnum = pn[newvec[0]];
+
+		// stop moving
+		en_select = -1;
+		break;
+
+		// rectangle
+	case '2':
+		// create new record
+		newvec = new int[len];
+		memset(newvec, 0, sizeof(newvec));
+		newvec[0] = 1;
+
+		// set global values 
+		pnum = pn[newvec[0]];
+
+		// stop moving
+		en_select = -1;
+		break;
+
+		// line
+	case '3':
+		// create new record
+		newvec = new int[len];
+		memset(newvec, 0, sizeof(newvec));
+		newvec[0] = 2;
+
+		// set global values 
+		pnum =  pn[newvec[0]];
+
+		// stop moving
+		en_select = -1;
+		break;
+
+		// move
+	case '4':
+		memset(last, 0, sizeof(last));
+		en_select = 0;
+		pnum = -1;
+		break;
+
+		// save
+	case '5':
+		 save();
+		break;
+
+		// load
+	case '6':
+		 vec.clear();
+		glClearColor(1.0, 1.0, 1.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// reset vars
+		memset(last, 0, sizeof(last));
+		pnum = -1;
+		en_select = -1;
+		en_move = -1;
+
+		// load
+		 load();
+		break;
+
+		// quit
+	case 27:
+		exit(0);
+		break;
+	}
+	glutPostRedisplay();
+	return;
+}

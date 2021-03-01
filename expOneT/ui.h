@@ -22,12 +22,6 @@ public:
 	// windows
 	int W = 1000, H = 600;
 	
-	// menu
-	typedef struct menuEntryStruct {
-		const char* label;
-		char key;
-	} menuEntryStruct;
-
 	// paint
 	void paint();
 
@@ -41,19 +35,8 @@ private:
 
 	// global vars
 	record image;
-	int* newvec = new int[image.len];
-	int index;
-	int last[2] = { 0, 0 };
-
-	// enable vars
-	int pnum = -1;
-	int en_select = -1;
-	int en_move = -1;
 
 	// menu
-	
-	void userEventAction(int);
-
 	void selectMain(int choice);
 	static void selectMainCallback(int choice)
 	{

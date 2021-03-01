@@ -24,6 +24,24 @@ public:
 	// 1(id) + 2(x,y) * 3(the maxium of points)
 	const int len = 7;
 
+	// global vars
+	int* newvec = new int[len];
+	int index;
+	int last[2] = { 0, 0 };
+
+	// enable vars
+	int pnum = -1;
+	int en_select = -1;
+	int en_move = -1;
+
+	// menu
+	typedef struct menuEntryStruct {
+		const char* label;
+		char key;
+	} menuEntryStruct;
+
+	void userEventAction(int);
+
 	// painter
 	void painter();
 
@@ -39,7 +57,7 @@ public:
 	int shift(int, int, int);
 
 private:
-	// display data
+	// display data for debug
 	void display();
 	void show(int);
 
