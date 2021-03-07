@@ -15,6 +15,7 @@
 #include <memory.h>
 #include <GL/glut.h>
 #include "record.h"
+#include "tri.h"
 
 class ui
 {
@@ -35,6 +36,7 @@ private:
 
 	// global vars
 	record image;
+	tri it;
 
 	// menu
 	void selectMain(int choice);

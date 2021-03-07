@@ -82,10 +82,12 @@
   <ItemGroup>
     <ClCompile Include="expOneT.cpp" />
     <ClCompile Include="record.cpp" />
+    <ClCompile Include="shape.cpp" />
     <ClCompile Include="ui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="record.h" />
+    <ClInclude Include="shape.h" />
     <ClInclude Include="ui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
