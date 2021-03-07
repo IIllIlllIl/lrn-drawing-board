@@ -8,24 +8,21 @@
 #pragma once
 #include <vector>
 #include <algorithm>
+#include "shape.h"
 using namespace std;
 
 class record
 {
 public:
 	// io vec[7]: type(1)+points(3*2=6)
-	vector<int*> vec;
-
-	// how much points is needed to describe an image
-	// triangle rectangle line
-	int pn[3] = { 3, 2, 2 };
+	vector<shape> vec;
+	shape* newvec = new shape;
 
 	// length of ptr in vec 
 	// 1(id) + 2(x,y) * 3(the maxium of points)
 	const int len = 7;
 
 	// global vars
-	int* newvec = new int[len];
 	int index;
 	int last[2] = { 0, 0 };
 

@@ -5,7 +5,8 @@
 #include "record.h"
 #include "ui.h"
 
-
+#define e(x) cout<<#x<<"="<<x<<endl;
+#define c(y) cout<<#y<<endl;
 
 // menu
 record::menuEntryStruct mainMenu[] = {
@@ -57,13 +58,14 @@ void ui::mouseButton(int button, int state, int x, int y) {
 
 		// write into pvalues
 		if (image.pnum > 0) {
-			image.newvec[2 * image.pnum - 1] = x;
-			image.newvec[2 * image.pnum] = y;
+			image.newvec->vec[2 * image.pnum - 1] = x;
+			image.newvec->vec[2 * image.pnum] = y;
 			image.pnum--;
 		}
 		if (image.pnum == 0) {
 			//add to image
-			image.vec.push_back(image.newvec);
+			image.vec.push_back(*image.newvec);
+			image.newvec = new shape;
 			image.pnum = -1;
 		}
 

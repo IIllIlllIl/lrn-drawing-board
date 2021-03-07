@@ -7,10 +7,12 @@
 #include <GL/glut.h>
 using namespace std;
 
+#define e(x) cout<<#x<<"="<<x<<endl;
+#define c(y) cout<<#y<<endl;
+
 void shape::painter() {
-	// show records
-	glColor3f(0.7, 0.8, 0.6);
-	
+	glColor4f(0.6, 0.7, 0.5, 0.1);
+
 	// triangle
 	if (vec[0] == 0) {
 		glBegin(GL_TRIANGLES);
@@ -63,6 +65,7 @@ int shape::select(int x, int y) {
 				+ x * vec[2] - x * vec[4];
 
 			if (abs(s) == (abs(s12) + abs(s34) + abs(s56))) { seq = 0; }
+
 			break;
 
 		// rectangle
@@ -110,22 +113,21 @@ int shape::select(int x, int y) {
 			}
 
 			// cmp: 0: success
-			if (x > x1&& x<x2 && y>y1&& y < y2){}
-			else { return -1; }
+			if (x > x1&& x<x2 && y>y1&& y < y2){
+				// the func of the line
+				int a, b, c;
+				a = vec[4] - vec[2];
+				b = vec[1] - vec[3];
+				c = vec[3] * vec[2] - vec[1] * vec[4];
 
-			// the func of the line
-			int a, b, c;
-			a = vec[4] - vec[2];
-			b = vec[1] - vec[3];
-			c = vec[3] * vec[2] - vec[1] * vec[4];
+				// distance
+				double d, d1, d2;
+				d1 = fabs(a * x + b * y + c);
+				d2 = sqrt((pow(a, 2) + pow(b, 2)));
+				d = d1 / d2;
 
-			// distance
-			double d, d1, d2;
-			d1 = fabs(a * x + b * y + c);
-			d2 = sqrt((pow(a, 2) + pow(b, 2)));
-			d = d1 / d2;
-
-			if (d <= 5) { seq = 0; }
+				if (d <= 5) { seq = 0; }
+			}
 			break;
 
 		default:

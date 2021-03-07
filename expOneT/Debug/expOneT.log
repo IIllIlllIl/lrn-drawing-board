@@ -1,3 +1,3 @@
 ﻿  shape.cpp
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\shape.cpp(12,25): warning C4305: “参数”: 从“double”到“GLfloat”截断
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\shape.cpp(14,30): warning C4305: “参数”: 从“double”到“GLfloat”截断
   expOneT.vcxproj -> C:\userspace\programs\#languages\C\prog\paint\expOneT\Debug\expOneT.exe
