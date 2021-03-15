@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "shape.h"
 
 class tri:public shape
@@ -17,6 +18,10 @@ public:
 	void painter();
 
 	int select(int, int);
+
+	void move(int, int);
+
+	void read();
 
 	void save();
 };

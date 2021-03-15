@@ -1,6 +1,3 @@
-// this class serve as a data stuct (mainly a vector)
-// which describes iamges painted by gui
-//
 // iillilllil
 // wang.tr@outlook.com
 //

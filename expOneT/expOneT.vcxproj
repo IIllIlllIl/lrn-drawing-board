@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="expOneT.cpp" />
     <ClCompile Include="line.cpp" />
+    <ClCompile Include="pol.cpp" />
     <ClCompile Include="rec.cpp" />
     <ClCompile Include="record.cpp" />
     <ClCompile Include="tri.cpp" />
@@ -89,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="line.h" />
+    <ClInclude Include="pol.h" />
     <ClInclude Include="rec.h" />
     <ClInclude Include="record.h" />
     <ClInclude Include="shape.h" />

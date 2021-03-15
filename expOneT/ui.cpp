@@ -14,9 +14,10 @@ record::menuEntryStruct mainMenu[] = {
 	"triangle",       '1',
 	"rectangle",      '2',
 	"line",           '3',
-	"move",           '4',
-	"save",			  '5',
-	"load",			  '6',
+	"polygon",		  '4',
+	"move",           '5',
+	"save",			  '6',
+	"load",			  '7',
 	"quit", 		  27,
 };
 int mainMenuEntries = sizeof(mainMenu) / sizeof(record::menuEntryStruct);
@@ -58,12 +59,13 @@ void ui::mouseButton(int button, int state, int x, int y) {
 
 		// write into pvalues
 		if (image.pnum > 0) {
-			image.newvec->vec[2 * image.pnum - 1] = x;
-			image.newvec->vec[2 * image.pnum] = y;
+			image.newvec->buf.push_back(x);
+			image.newvec->buf.push_back(y);
 			image.pnum--;
 		}
 		if (image.pnum == 0) {
 			//add to image
+			image.newvec->read();
 			image.vec.push_back(image.newvec);
 			image.pnum = -1;
 		}

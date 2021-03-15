@@ -1,16 +1,15 @@
 #pragma once
-#include <string>
+#include <vector>
 #include "shape.h"
 
-class line:public shape
+class pol :public shape
 {
-public:
 	// universal id for every image
-	int id = 2;
+	int id = 3;
 
 	// data
-	int x1, y1;
-	int x2, y2;
+	vector<int> x;
+	vector<int> y;
 
 	int pn();
 

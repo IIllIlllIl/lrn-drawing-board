@@ -1,8 +1,4 @@
-﻿// this class is about gui
-// which locates between the data struct and users
-// making data visable and read user's operation
-//
-// iillilllil
+﻿// iillilllil
 // wang.tr@outlook.com
 //
 

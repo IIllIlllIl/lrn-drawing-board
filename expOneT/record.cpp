@@ -12,6 +12,7 @@
 #include "tri.h"
 #include "rec.h"
 #include "line.h"
+#include "pol.h"
 using namespace std;
 
 // used by func line
@@ -40,54 +41,49 @@ void record::load() {
 
 	// if exist
 	else {
-		int* buffer = new int[len];
+		int buffer;
 
 		//read
-		while (infile >> buffer[0]) {
-			// read other 6 value
-			for (int j = 1; j < len; j++) {
-				infile >> buffer[j];
-			}
-
+		while (infile >> buffer) {
 			// add to vec
-			switch (buffer[0]) {
+			switch (buffer) {
 			case(0):
 				//tri
 				newvec = new tri;
-				for (int i = 0; i < len; i++) {
-					newvec->vec[i] = buffer[i];
+				newvec->buf.clear();
+				for (int i = 0; i < (2*newvec->pn()); i++) {
+					infile >> buffer;
+					newvec->buf.push_back(buffer);
 				}
+				newvec->read();
 				vec.push_back(newvec);
 				break;
 			case(1):
 				//rec
 				newvec = new rec;
-				for (int i = 0; i < len; i++) {
-					newvec->vec[i] = buffer[i];
+				newvec->buf.clear();
+				for (int i = 0; i < (2 * newvec->pn()); i++) {
+					infile >> buffer;
+					newvec->buf.push_back(buffer);
 				}
+				newvec->read();
 				vec.push_back(newvec);
 				break;
 			case(2):
 				//line
 				newvec = new line;
-				for (int i = 0; i < len; i++) {
-					newvec->vec[i] = buffer[i];
+				newvec->buf.clear();
+				for (int i = 0; i < (2 * newvec->pn()); i++) {
+					infile >> buffer;
+					newvec->buf.push_back(buffer);
 				}
+				newvec->read();
 				vec.push_back(newvec);
 				break;
 			defualt:
 				cout << "undefined images" << endl;
 			}
-			// renew the buffer
-			buffer = new int[len];
 		}
-
-		/*for (int i = 0; i < vec.size(); i++) {
-			for (int j = 0; j < 7; j++) {
-				cout << vec[i].vec[j] << " ";
-			}
-			cout << endl;
-		}*/
 	}
 
 	infile.close();
@@ -107,8 +103,10 @@ void record::save() {
 
 	// write
 	for (int i = 0; i < vec.size(); i++) {
-		for (int j = 0; j < len; j++) {
-			outfile << vec[i]->vec[j] << " ";
+		vec[i]->buf.clear();
+		vec[i]->save();
+		for (int j = 0; j < vec[i]->buf.size(); j++) {
+			outfile << vec[i]->buf[j] << " ";
 		}
 	}
 
@@ -136,12 +134,9 @@ int record::select(int x, int y) {
 // move
 int record::shift(int i, int dx, int dy) {
 	if (i >= vec.size()) { return -2; }
-
-	for (int j = 0; j < 3; j++) {
-		vec[i]->vec[2 * j + 1] += dx;
-		vec[i]->vec[2 * j + 2] += dy;
-	}
-
+	
+	vec[i]->move(dx, dy);
+	
 	return 0;
 }
 
@@ -156,9 +151,6 @@ void record::painter() {
 void record::userEventAction(int key) {
 	switch (key)
 	{
-	// create new record
-	memset(newvec->vec, 0, sizeof(newvec->vec));
-
 	// reset
 	case '0':
 		vec.clear();
@@ -175,10 +167,10 @@ void record::userEventAction(int key) {
 		// triangle
 	case '1':
 		newvec = new tri;
-		newvec->vec[0] = 0;
 
 		// set global values 
 		pnum = newvec->pn();
+		newvec->buf.clear();
 
 		// stop moving
 		en_select = -1;
@@ -187,7 +179,7 @@ void record::userEventAction(int key) {
 		// rectangle
 	case '2':
 		newvec = new rec;
-		newvec->vec[0] = 1;
+		newvec->buf.clear();
 
 		// set global values 
 		pnum = newvec->pn();
@@ -199,7 +191,7 @@ void record::userEventAction(int key) {
 		// line
 	case '3':
 		newvec = new line;
-		newvec->vec[0] = 2;
+		newvec->buf.clear();
 
 		// set global values 
 		pnum = newvec->pn();
@@ -208,20 +200,32 @@ void record::userEventAction(int key) {
 		en_select = -1;
 		break;
 
-		// move
+		// polygon
 	case '4':
+		newvec = new pol;
+		newvec->buf.clear();
+
+		// set global values 
+		pnum = newvec->pn();
+
+		// stop moving
+		en_select = -1;
+		break;
+		
+		// move
+	case '5':
 		memset(last, 0, sizeof(last));
 		en_select = 0;
 		pnum = -1;
 		break;
 
 		// save
-	case '5':
+	case '6':
 		save();
 		break;
 
 		// load
-	case '6':
+	case '7':
 		vec.clear();
 		glClearColor(1.0, 1.0, 1.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);

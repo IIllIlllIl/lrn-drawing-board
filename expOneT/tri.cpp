@@ -16,21 +16,21 @@ int tri::select(int x, int y) {
 
 	// areas
 	int s, s12, s34, s56;
-	s = vec[1] * vec[4] - vec[1] * vec[6]
-		+ vec[3] * vec[6] - vec[3] * vec[2]
-		+ vec[5] * vec[2] - vec[5] * vec[4];
+	s = x1 * y2 - x1 * y3
+		+ x2 * y3 - x2 * y1
+		+ x3 * y1 - x3 * y2;
 
-	s12 = x * vec[4] - x * vec[6]
-		+ vec[3] * vec[6] - vec[3] * y
-		+ vec[5] * y - vec[5] * vec[4];
+	s12 = x * y2 - x * y3
+		+ x2 * y3 - x2 * y
+		+ x3 * y - x3 * y2;
 
-	s34 = vec[1] * y - vec[1] * vec[6]
-		+ x * vec[6] - x * vec[2]
-		+ vec[5] * vec[2] - vec[5] * y;
+	s34 = x1 * y - x1 * y3
+		+ x * y3 - x * y1
+		+ x3 * y1 - x3 * y;
 
-	s56 = vec[1] * vec[4] - vec[1] * y
-		+ vec[3] * y - vec[3] * vec[2]
-		+ x * vec[2] - x * vec[4];
+	s56 = x1 * y2 - x1 * y
+		+ x2 * y - x2 * y1
+		+ x * y1 - x * y2;
 
 	if (abs(s) == (abs(s12) + abs(s34) + abs(s56))) { seq = 0; }
 
@@ -38,19 +38,45 @@ int tri::select(int x, int y) {
 	
 }
 
+void tri::move(int dx, int dy) {
+	x1 += dx;
+	x2 += dx;
+	x3 += dx;
+	y1 += dy;
+	y2 += dy;
+	y3 += dy;
+}
+
 void tri::painter() {
 	glColor3f(0.7, 0.8, 0.6);
+	glBegin(GL_TRIANGLES);
+	glVertex2d(x1, y1);
+	glVertex2d(x2, y2);
+	glVertex2d(x3, y3);
+	glEnd();
+}
 
-	// triangle
-	if (vec[0] == id) {
-		glBegin(GL_TRIANGLES);
-		glVertex2d(vec[1], vec[2]);
-		glVertex2d(vec[3], vec[4]);
-		glVertex2d(vec[5], vec[6]);
-		glEnd();		
+void tri::read() {
+	// read err
+	if (buf.size() < 6) {
+		cout << "read error" << endl;
+		return;
 	}
+
+	x1 = buf[0];
+	y1 = buf[1];
+	x2 = buf[2];
+	y2 = buf[3];
+	x3 = buf[4];
+	y3 = buf[5];
 }
 
 void tri::save() {
-
+	buf.push_back(id);
+	buf.push_back(x1);
+	buf.push_back(y1);
+	buf.push_back(x2);
+	buf.push_back(y2);
+	buf.push_back(x3);
+	buf.push_back(y3);
 }
