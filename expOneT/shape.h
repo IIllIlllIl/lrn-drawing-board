@@ -7,12 +7,15 @@ public:
 	int* vec = new int[7];
 
 	// how much points is needed to describe an image
-	int pn[3] = { 3,2,2 };
+	virtual int pn() = 0;
 
 	// painter
-	void painter();
+	virtual void painter() = 0;
 
 	// select the clicked image
-	int select(int, int);
+	virtual int select(int, int) = 0;
+
+	// save
+	virtual void save() = 0;
 };
 

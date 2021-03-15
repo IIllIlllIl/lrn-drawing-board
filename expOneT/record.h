@@ -9,14 +9,15 @@
 #include <vector>
 #include <algorithm>
 #include "shape.h"
+#include "tri.h"
 using namespace std;
 
 class record
 {
 public:
 	// io vec[7]: type(1)+points(3*2=6)
-	vector<shape> vec;
-	shape* newvec = new shape;
+	vector<shape*> vec;
+	shape* newvec;
 
 	// length of ptr in vec 
 	// 1(id) + 2(x,y) * 3(the maxium of points)
@@ -42,7 +43,6 @@ public:
 	// painter
 	void painter();
 
-
 	// read or write files
 	void load();
 	void save();
@@ -52,14 +52,5 @@ public:
 
 	// move
 	int shift(int, int, int);
-
-private:
-	// display data for debug
-	void display();
-	void show(int);
-
-	int tri(int, int, int);
-	int rec(int, int, int);
-	int line(int, int, int);
 };
 

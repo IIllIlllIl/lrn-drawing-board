@@ -1,3 +1,16 @@
-﻿  shape.cpp
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\shape.cpp(14,30): warning C4305: “参数”: 从“double”到“GLfloat”截断
+﻿  expOneT.cpp
+  line.cpp
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\line.cpp(59,25): warning C4305: “参数”: 从“double”到“GLfloat”截断
+  rec.cpp
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\rec.cpp(44,25): warning C4305: “参数”: 从“double”到“GLfloat”截断
+  record.cpp
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(78,11): warning C4102: “defualt”: 未引用的标签
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(109,20): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(126,16): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(138,8): warning C4018: “>=”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(150,20): warning C4018: “<”: 有符号/无符号不匹配
+  tri.cpp
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\tri.cpp(42,25): warning C4305: “参数”: 从“double”到“GLfloat”截断
+  ui.cpp
+  正在生成代码...
   expOneT.vcxproj -> C:\userspace\programs\#languages\C\prog\paint\expOneT\Debug\expOneT.exe

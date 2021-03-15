@@ -36,7 +36,6 @@ private:
 
 	// global vars
 	record image;
-	tri it;
 
 	// menu
 	void selectMain(int choice);

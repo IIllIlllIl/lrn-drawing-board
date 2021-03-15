@@ -64,8 +64,7 @@ void ui::mouseButton(int button, int state, int x, int y) {
 		}
 		if (image.pnum == 0) {
 			//add to image
-			image.vec.push_back(*image.newvec);
-			image.newvec = new shape;
+			image.vec.push_back(image.newvec);
 			image.pnum = -1;
 		}
 

@@ -1,20 +1,23 @@
 #pragma once
-#include "record.h"
+#include "shape.h"
 
-class tri
+class tri:public shape
 {
 public:
-	//universal id for every image
+	// universal id for every image
 	int id = 0;
 
-	int pn = 3;
-	// io vec[7]: type(1)+points(3*2=6)
-	vector<int*> vec;
+	// data
+	int x1, y1;
+	int x2, y2;
+	int x3, y3;
 
-	void load();
+	int pn();
 
 	void painter();
 
 	int select(int, int);
+
+	void save();
 };
 

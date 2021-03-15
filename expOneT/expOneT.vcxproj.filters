@@ -24,7 +24,13 @@
     <ClCompile Include="ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shape.cpp">
+    <ClCompile Include="tri.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +42,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tri.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

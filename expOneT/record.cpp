@@ -9,104 +9,13 @@
 #include <vector>
 #include <cmath>
 #include <GL/glut.h>
+#include "tri.h"
+#include "rec.h"
+#include "line.h"
 using namespace std;
 
 // used by func line
 int dist = 5;
-
-// to check if it is in the area of image
-int record::tri(int i, int x, int y) {
-	// real tri?
-	if (vec[i].vec[0] != 0) { return -2; }
-
-	// areas
-	int s, s12, s34, s56;
-	s = vec[i].vec[1] * vec[i].vec[4] - vec[i].vec[1] * vec[i].vec[6]
-		+ vec[i].vec[3] * vec[i].vec[6] - vec[i].vec[3] * vec[i].vec[2]
-		+ vec[i].vec[5] * vec[i].vec[2] - vec[i].vec[5] * vec[i].vec[4];
-
-	s12 = x * vec[i].vec[4] - x * vec[i].vec[6]
-		+ vec[i].vec[3] * vec[i].vec[6] - vec[i].vec[3] * y
-		+ vec[i].vec[5] * y - vec[i].vec[5] * vec[i].vec[4];
-
-	s34 = vec[i].vec[1] * y - vec[i].vec[1] * vec[i].vec[6]
-		+ x * vec[i].vec[6] - x * vec[i].vec[2]
-		+ vec[i].vec[5] * vec[i].vec[2] - vec[i].vec[5] * y;
-
-	s56 = vec[i].vec[1] * vec[i].vec[4] - vec[i].vec[1] * y
-		+ vec[i].vec[3] * y - vec[i].vec[3] * vec[i].vec[2]
-		+ x * vec[i].vec[2] - x * vec[i].vec[4];
-
-	if (abs(s) == (abs(s12) + abs(s34) + abs(s56))) { return 0; }
-	else { return -1; }
-}
-int record::rec(int i, int x, int y) {
-	// real rect?
-	if (vec[i].vec[0] == 0) { return -2; }
-
-	// the edges(x1 <= x2, y1 <= y2)
-	int x1, x2, y1, y2;
-	if (vec[i].vec[1] >= vec[i].vec[3]) {
-		x1 = vec[i].vec[3];
-		x2 = vec[i].vec[1];
-	}
-	else {
-		x1 = vec[i].vec[1];
-		x2 = vec[i].vec[3];
-	}
-	if (vec[i].vec[2] >= vec[i].vec[4]) {
-		y1 = vec[i].vec[4];
-		y2 = vec[i].vec[2];
-	}
-	else {
-		y1 = vec[i].vec[2];
-		y2 = vec[i].vec[4];
-	}
-
-	// cmp: 0: success
-	if (x > x1&& x<x2 && y>y1&& y < y2) { return 0; }
-	else { return -1; }
-}
-int record::line(int i, int x, int y) {
-	// real line?
-	if (vec[i].vec[0] != 2) { return -2; }
-
-	// use rectangle
-	if (rec(i, x, y) == -1) { return -1; }
-
-	// the func of the line
-	int a, b, c;
-	a = vec[i].vec[4] - vec[i].vec[2];
-	b = vec[i].vec[1] - vec[i].vec[3];
-	c = vec[i].vec[3] * vec[i].vec[2] - vec[i].vec[1] * vec[i].vec[4];
-
-	// distance
-	double d, d1, d2;
-	d1 = fabs(a * x + b * y + c);
-	d2 = sqrt((pow(a, 2) + pow(b, 2)));
-	d = d1 / d2;
-
-	if (d <= dist) { return 0; }
-	else { return -1; }
-}
-
-// dispaly
-void record::display() {
-	for (int i = 0; i < vec.size(); i++) {
-		for (int j = 0; j < len; j++) {
-			cout << vec[i].vec[j] << " ";
-		}
-		cout << endl;
-	}
-}
-void record::show(int i) {
-	cout <<  vec[i].vec[1] << " ";
-	cout <<  vec[i].vec[2] << " ";
-	cout <<  vec[i].vec[3] << " ";
-	cout <<  vec[i].vec[4] << " ";
-	cout <<  vec[i].vec[5] << " ";
-	cout <<  vec[i].vec[6] << endl;
-}
 
 // read data
 void record::load() {
@@ -141,13 +50,44 @@ void record::load() {
 			}
 
 			// add to vec
-			shape newshape;
-			newshape.vec = buffer;
-			vec.push_back(newshape);
-
+			switch (buffer[0]) {
+			case(0):
+				//tri
+				newvec = new tri;
+				for (int i = 0; i < len; i++) {
+					newvec->vec[i] = buffer[i];
+				}
+				vec.push_back(newvec);
+				break;
+			case(1):
+				//rec
+				newvec = new rec;
+				for (int i = 0; i < len; i++) {
+					newvec->vec[i] = buffer[i];
+				}
+				vec.push_back(newvec);
+				break;
+			case(2):
+				//line
+				newvec = new line;
+				for (int i = 0; i < len; i++) {
+					newvec->vec[i] = buffer[i];
+				}
+				vec.push_back(newvec);
+				break;
+			defualt:
+				cout << "undefined images" << endl;
+			}
 			// renew the buffer
 			buffer = new int[len];
 		}
+
+		/*for (int i = 0; i < vec.size(); i++) {
+			for (int j = 0; j < 7; j++) {
+				cout << vec[i].vec[j] << " ";
+			}
+			cout << endl;
+		}*/
 	}
 
 	infile.close();
@@ -168,7 +108,7 @@ void record::save() {
 	// write
 	for (int i = 0; i < vec.size(); i++) {
 		for (int j = 0; j < len; j++) {
-			outfile << vec[i].vec[j] << " ";
+			outfile << vec[i]->vec[j] << " ";
 		}
 	}
 
@@ -185,7 +125,7 @@ int record::select(int x, int y) {
 
 	for (i = 0; i < vec.size(); i++) {
 		// read type
-		seq = vec[i].select(x, y);
+		seq = vec[i]->select(x, y);
 
 		if (seq != -1) { break; }
 	}
@@ -198,8 +138,8 @@ int record::shift(int i, int dx, int dy) {
 	if (i >= vec.size()) { return -2; }
 
 	for (int j = 0; j < 3; j++) {
-		vec[i].vec[2 * j + 1] += dx;
-		vec[i].vec[2 * j + 2] += dy;
+		vec[i]->vec[2 * j + 1] += dx;
+		vec[i]->vec[2 * j + 2] += dy;
 	}
 
 	return 0;
@@ -208,7 +148,7 @@ int record::shift(int i, int dx, int dy) {
 //paint
 void record::painter() {
 	for (int i = 0; i < vec.size(); i++) {
-		vec[i].painter();
+		vec[i]->painter();
 	}
 }
 
@@ -234,10 +174,11 @@ void record::userEventAction(int key) {
 
 		// triangle
 	case '1':
+		newvec = new tri;
 		newvec->vec[0] = 0;
 
 		// set global values 
-		pnum = newvec->pn[0];
+		pnum = newvec->pn();
 
 		// stop moving
 		en_select = -1;
@@ -245,10 +186,11 @@ void record::userEventAction(int key) {
 
 		// rectangle
 	case '2':
+		newvec = new rec;
 		newvec->vec[0] = 1;
 
 		// set global values 
-		pnum = newvec->pn[1];
+		pnum = newvec->pn();
 
 		// stop moving
 		en_select = -1;
@@ -256,10 +198,11 @@ void record::userEventAction(int key) {
 
 		// line
 	case '3':
+		newvec = new line;
 		newvec->vec[0] = 2;
 
 		// set global values 
-		pnum = newvec->pn[2];
+		pnum = newvec->pn();
 
 		// stop moving
 		en_select = -1;
