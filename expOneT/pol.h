@@ -22,5 +22,7 @@ class pol :public shape
 	void read();
 
 	void save();
+
+	int tri(int, int, int);
 };
 

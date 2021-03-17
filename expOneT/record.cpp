@@ -80,6 +80,18 @@ void record::load() {
 				newvec->read();
 				vec.push_back(newvec);
 				break;
+			case(3):
+				newvec = new pol;
+				newvec->buf.clear();
+				infile >> buffer;
+				int n = buffer;
+				for (int i = 0; i < 2 * n; i++) {
+					infile >> buffer;
+					newvec->buf.push_back(buffer);
+				}
+				newvec->read();
+				vec.push_back(newvec);
+				break;
 			defualt:
 				cout << "undefined images" << endl;
 			}

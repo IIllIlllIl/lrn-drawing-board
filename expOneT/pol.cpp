@@ -8,10 +8,19 @@
 #include <GL/glut.h>
 using namespace std;
 
+#define e(x) cout<<#x<<"="<<x<<endl;
+#define c(y) cout<<#y<<endl;
+
 int pol::pn() { return 100; }
 
-int pol::select(int x,int y) {
-	return 0;
+int pol::select(int px,int py) {
+	for (int i = 1; i < x.size() - 1; i++) {
+		if (tri(px, py, i) == 0) {
+			return 0;
+		}
+	}
+
+	return -1;
 }
 
 void pol::move(int dx, int dy) {
@@ -31,17 +40,43 @@ void pol::painter() {
 }
 
 void pol::read() {
-	for (int i = 0; i < x.size(); i++) {
-		x[i] = buf[2 * i];
-		y[i] = buf[2 * i + 1];
+	for (int i = 0; i < buf.size() / 2; i++) {
+		x.push_back(buf[2 * i]);
+		y.push_back(buf[2 * i + 1]);
 	}
 }
 
 void pol::save() {
 	buf.push_back(id);
+	buf.push_back(x.size());
 	for (int i = 0; i < x.size(); i++) {
 		buf.push_back(x[i]);
 		buf.push_back(y[i]);
 	}
-	buf.push_back(0x7f7f7f7f);
+}
+
+int pol::tri(int px, int py, int i) {
+	int seq = -1;
+
+	// areas
+	int s, s12, s34, s56;
+	s = x[0] * y[i] - x[0] * y[i+1]
+		+ x[i] * y[i+1] - x[i] * y[0]
+		+ x[i+1] * y[0] - x[i+1] * y[i];
+
+	s12 = px * y[i] - px * y[i+1]
+		+ x[i] * y[i+1] - x[i] * py
+		+ x[i+1] * py - x[i+1] * y[i];
+
+	s34 = x[0] * py - x[0] * y[i+1]
+		+ px * y[i+1] - px * y[0]
+		+ x[i+1] * y[0] - x[i+1] * py;
+
+	s56 = x[0] * y[i] - x[0] * py
+		+ x[i] * py - x[i] * y[0]
+		+ px * y[0] - px * y[i];
+
+	if (abs(s) == (abs(s12) + abs(s34) + abs(s56))) { seq = 0; }
+
+	return seq;
 }
