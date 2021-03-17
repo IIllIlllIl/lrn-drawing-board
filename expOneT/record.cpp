@@ -157,6 +157,17 @@ void record::painter() {
 	for (int i = 0; i < vec.size(); i++) {
 		vec[i]->painter();
 	}
+
+	// show points when drawing
+	if (pnum >= 0) {
+		glColor3f(0.7, 0.8, 0.6);
+		glPointSize(5);
+		glBegin(GL_POINTS);
+		for (int i = 0; i < newvec->buf.size() / 2; i++) {
+			glVertex2d(newvec->buf[2 * i], newvec->buf[2 * i + 1]);
+		}
+		glEnd();
+	}
 }
 
 //menu
