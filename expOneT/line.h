@@ -23,5 +23,7 @@ public:
 	void read();
 
 	void save();
+
+	int end(int, int);
 };
 

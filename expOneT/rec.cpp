@@ -72,3 +72,5 @@ void rec::save() {
 	buf.push_back(x2);
 	buf.push_back(y2);
 }
+
+int rec::end(int x, int y) { return 1; }

@@ -26,4 +26,7 @@ public:
 
 	// save
 	virtual void save() = 0;
+
+	// wehen to end drawing
+	virtual int end(int, int) = 0;
 };

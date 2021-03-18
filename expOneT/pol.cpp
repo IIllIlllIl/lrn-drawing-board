@@ -55,6 +55,17 @@ void pol::save() {
 	}
 }
 
+int pol::end(int x, int y) {
+	for (int i = 0; i < buf.size() / 2; i++) {
+		if (abs(x - buf[2 * i]) < 3
+		&& abs(y - buf[2 * i + 1]) < 3) {
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
 int pol::tri(int px, int py, int i) {
 	int seq = -1;
 

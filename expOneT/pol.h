@@ -23,6 +23,8 @@ class pol :public shape
 
 	void save();
 
+	int end(int, int);
+
 	int tri(int, int, int);
 };
 

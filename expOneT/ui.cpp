@@ -59,20 +59,12 @@ void ui::mouseButton(int button, int state, int x, int y) {
 
 		// write into pvalues
 		if (image.pnum > 0) {
-			//pol
-			if (image.newvec->pn() == 100) {
-				if (image.pnum == 100) {}
-				else {
-					for (int i = 0; i < image.newvec->buf.size() / 2; i++) {
-						if (abs(x - image.newvec->buf[2 * i]) < 10
-							&& abs(y - image.newvec->buf[2 * i + 1]) < 10) {
-							image.newvec->read();
-							image.vec.push_back(image.newvec);
-							image.pnum = -1;
-							return;
-						}
-					}
-				}
+			// some image need a signal to finish drawing
+			if(image.newvec->end(x,y)==0){
+				image.newvec->read();
+				image.vec.push_back(image.newvec);
+				image.pnum = -1;
+				return;
 			}
 
 			image.newvec->buf.push_back(x);

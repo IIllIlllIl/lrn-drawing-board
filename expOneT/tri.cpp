@@ -80,3 +80,7 @@ void tri::save() {
 	buf.push_back(x3);
 	buf.push_back(y3);
 }
+
+int tri::end(int x, int y) {
+	return 1;
+}

@@ -1,10 +1,2 @@
-﻿  record.cpp
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(95,11): warning C4102: “defualt”: 未引用的标签
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(117,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(120,21): warning C4018: “<”: 有符号/无符号不匹配
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(136,16): warning C4018: “<”: 有符号/无符号不匹配
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(148,8): warning C4018: “>=”: 有符号/无符号不匹配
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(157,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(163,26): warning C4305: “参数”: 从“double”到“GLfloat”截断
-C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(166,21): warning C4018: “<”: 有符号/无符号不匹配
+﻿  ui.cpp
   expOneT.vcxproj -> C:\userspace\programs\#languages\C\prog\paint\expOneT\Debug\expOneT.exe
