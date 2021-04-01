@@ -23,6 +23,7 @@ public:
 
 	// read data from buffer
 	virtual void read() = 0;
+	virtual void read(int&, int*) = 0;
 
 	// save
 	virtual void save() = 0;

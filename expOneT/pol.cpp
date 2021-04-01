@@ -11,7 +11,10 @@ using namespace std;
 #define e(x) cout<<#x<<"="<<x<<endl;
 #define c(y) cout<<#y<<endl;
 
-int pol::pn() { return 100; }
+int pol::pn() {
+	if (x.size() == 0) { return 100; }
+	else { return x.size(); }
+}
 
 int pol::select(int px,int py) {
 	for (int i = 1; i < x.size() - 1; i++) {
@@ -40,6 +43,22 @@ void pol::painter() {
 }
 
 void pol::read() {
+	// put data into class
+	for (int i = 0; i < buf.size() / 2; i++) {
+		x.push_back(buf[2 * i]);
+		y.push_back(buf[2 * i + 1]);
+	}
+}
+
+void pol::read(int& start, int* iobuf) {
+	// read data int buffer
+	buf.clear();
+	int n = iobuf[start++];
+	for (int i = 0; i < 2 * n; i++) {
+		buf.push_back(iobuf[start++]);
+	}
+
+	// put data into class
 	for (int i = 0; i < buf.size() / 2; i++) {
 		x.push_back(buf[2 * i]);
 		y.push_back(buf[2 * i + 1]);

@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include "shape.h"
-#include "tri.h"
+#include "creator.h"
 using namespace std;
 
 class record
@@ -15,6 +15,12 @@ public:
 	// io vec[7]: type(1)+points(3*2=6)
 	vector<shape*> vec;
 	shape* newvec;
+
+	// to create images
+	vector<creator*> creators;
+
+	// menu
+	vector<void (*)(record*)> menuAction;
 
 	// length of ptr in vec 
 	// 1(id) + 2(x,y) * 3(the maxium of points)
@@ -36,6 +42,8 @@ public:
 	} menuEntryStruct;
 
 	void userEventAction(int);
+
+	record();
 
 	// painter
 	void painter();

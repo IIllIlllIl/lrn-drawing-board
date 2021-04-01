@@ -83,6 +83,25 @@ void line::read() {
 	y2 = buf[3];
 }
 
+void line::read(int& start, int* iobuf) {
+	// input data
+	buf.clear();
+	for (int i = 0; i < (2 * pn()); i++) {
+		buf.push_back(iobuf[start++]);
+	}
+
+	// read err
+	if (buf.size() < 4) {
+		cout << "read error" << endl;
+		return;
+	}
+
+	x1 = buf[0];
+	y1 = buf[1];
+	x2 = buf[2];
+	y2 = buf[3];
+}
+
 void line::save() {
 	buf.push_back(id);
 	buf.push_back(x1);

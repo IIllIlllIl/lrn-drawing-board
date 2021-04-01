@@ -13,10 +13,154 @@
 #include "rec.h"
 #include "line.h"
 #include "pol.h"
+#include "creator.h"
+#include "tri_ctr.h"
+#include "rec_ctr.h"
+#include "line_ctr.h"
+#include "pol_ctr.h"
 using namespace std;
 
 // used by func line
 int dist = 5;
+
+// menuAction
+// 0:reset
+void menu0(record* t) {
+	t->vec.clear();
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// reset vars
+	memset(t->last, 0, sizeof(t->last));
+	t->pnum = -1;
+	t->en_select = -1;
+	t->en_move = -1;
+}
+// 1-20:images
+void menu1(record* t) {
+	t->newvec = new tri;
+
+	// set global values 
+	t->pnum = t->newvec->pn();
+	t->newvec->buf.clear();
+
+	// stop moving
+	t->en_select = -1;
+}
+void menu2(record* t) {
+	t->newvec = new rec;
+	t->newvec->buf.clear();
+
+	// set global values 
+	t->pnum = t->newvec->pn();
+
+	// stop moving
+	t->en_select = -1;
+}
+void menu3(record* t) {
+	t->newvec = new line;
+	t->newvec->buf.clear();
+
+	// set global values 
+	t->pnum = t->newvec->pn();
+
+	// stop moving
+	t->en_select = -1;
+}
+void menu4(record* t) {
+	t->newvec = new pol;
+	t->newvec->buf.clear();
+
+	// set global values 
+	t->pnum = t->newvec->pn();
+
+	// stop moving
+	t->en_select = -1;
+}
+void menu5(record* t) {}
+void menu6(record* t) {}
+void menu7(record* t) {}
+void menu8(record* t) {}
+void menu9(record* t) {}
+void menu10(record* t) {}
+void menu11(record* t) {}
+void menu12(record* t) {}
+void menu13(record* t) {}
+void menu14(record* t) {}
+void menu15(record* t) {}
+void menu16(record* t) {}
+void menu17(record* t) {}
+void menu18(record* t) {}
+void menu19(record* t) {}
+void menu20(record* t) {}
+// 21-27:options
+void menu21(record* t) {
+	memset(t->last, 0, sizeof(t->last));
+	t->en_select = 0;
+	t->pnum = -1;
+}
+void menu22(record* t) {
+	t->save();
+}
+void menu23(record* t) {
+	t->vec.clear();
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// reset vars
+	memset(t->last, 0, sizeof(t->last));
+	t->pnum = -1;
+	t->en_select = -1;
+	t->en_move = -1;
+
+	// load
+	t->load();
+}
+void menu24(record* t) {}
+void menu25(record* t) {}
+void menu26(record* t) {}
+void menu27(record* t) {
+	exit(0);
+}
+
+// init
+record::record() {
+	// init creators
+	creators.push_back(new tri_ctr);
+	creators.push_back(new rec_ctr);
+	creators.push_back(new line_ctr);
+	creators.push_back(new pol_ctr);
+
+	// init menuAction
+	menuAction.push_back(menu0);
+	menuAction.push_back(menu1);
+	menuAction.push_back(menu2);
+	menuAction.push_back(menu3);
+	menuAction.push_back(menu4);
+	menuAction.push_back(menu5);
+	menuAction.push_back(menu6);
+	menuAction.push_back(menu7);
+	menuAction.push_back(menu8);
+	menuAction.push_back(menu9);
+	menuAction.push_back(menu10);
+	menuAction.push_back(menu11);
+	menuAction.push_back(menu12);
+	menuAction.push_back(menu13);
+	menuAction.push_back(menu14);
+	menuAction.push_back(menu15);
+	menuAction.push_back(menu16);
+	menuAction.push_back(menu17);
+	menuAction.push_back(menu18);
+	menuAction.push_back(menu19);
+	menuAction.push_back(menu20);
+	menuAction.push_back(menu21);
+	menuAction.push_back(menu22);
+	menuAction.push_back(menu23);
+	menuAction.push_back(menu24);
+	menuAction.push_back(menu25);
+	menuAction.push_back(menu26);
+	menuAction.push_back(menu27);
+}
 
 // read data
 void record::load() {
@@ -41,60 +185,20 @@ void record::load() {
 
 	// if exist
 	else {
+		// read into iobuf
+		int iobuf[1024];
 		int buffer;
-
-		//read
+		int n = 0;
 		while (infile >> buffer) {
-			// add to vec
-			switch (buffer) {
-			case(0):
-				//tri
-				newvec = new tri;
-				newvec->buf.clear();
-				for (int i = 0; i < (2*newvec->pn()); i++) {
-					infile >> buffer;
-					newvec->buf.push_back(buffer);
-				}
-				newvec->read();
-				vec.push_back(newvec);
-				break;
-			case(1):
-				//rec
-				newvec = new rec;
-				newvec->buf.clear();
-				for (int i = 0; i < (2 * newvec->pn()); i++) {
-					infile >> buffer;
-					newvec->buf.push_back(buffer);
-				}
-				newvec->read();
-				vec.push_back(newvec);
-				break;
-			case(2):
-				//line
-				newvec = new line;
-				newvec->buf.clear();
-				for (int i = 0; i < (2 * newvec->pn()); i++) {
-					infile >> buffer;
-					newvec->buf.push_back(buffer);
-				}
-				newvec->read();
-				vec.push_back(newvec);
-				break;
-			case(3):
-				newvec = new pol;
-				newvec->buf.clear();
-				infile >> buffer;
-				int n = buffer;
-				for (int i = 0; i < 2 * n; i++) {
-					infile >> buffer;
-					newvec->buf.push_back(buffer);
-				}
-				newvec->read();
-				vec.push_back(newvec);
-				break;
-			defualt:
-				cout << "undefined images" << endl;
-			}
+			iobuf[n++] = buffer;
+		}
+
+		// read into classes(shape)
+		int ptr = 0;
+		while (ptr < n - 1) {
+			newvec = creators[iobuf[ptr++]]->create();
+			newvec->read(ptr, iobuf);
+			vec.push_back(newvec);
 		}
 	}
 
@@ -172,102 +276,7 @@ void record::painter() {
 
 //menu
 void record::userEventAction(int key) {
-	switch (key)
-	{
-	// reset
-	case '0':
-		vec.clear();
-		glClearColor(1.0, 1.0, 1.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// reset vars
-		memset(last, 0, sizeof(last));
-		pnum = -1;
-		en_select = -1;
-		en_move = -1;
-		break;
-
-		// triangle
-	case '1':
-		newvec = new tri;
-
-		// set global values 
-		pnum = newvec->pn();
-		newvec->buf.clear();
-
-		// stop moving
-		en_select = -1;
-		break;
-
-		// rectangle
-	case '2':
-		newvec = new rec;
-		newvec->buf.clear();
-
-		// set global values 
-		pnum = newvec->pn();
-
-		// stop moving
-		en_select = -1;
-		break;
-
-		// line
-	case '3':
-		newvec = new line;
-		newvec->buf.clear();
-
-		// set global values 
-		pnum = newvec->pn();
-
-		// stop moving
-		en_select = -1;
-		break;
-
-		// polygon
-	case '4':
-		newvec = new pol;
-		newvec->buf.clear();
-
-		// set global values 
-		pnum = newvec->pn();
-
-		// stop moving
-		en_select = -1;
-		break;
-		
-		// move
-	case '5':
-		memset(last, 0, sizeof(last));
-		en_select = 0;
-		pnum = -1;
-		break;
-
-		// save
-	case '6':
-		save();
-		break;
-
-		// load
-	case '7':
-		vec.clear();
-		glClearColor(1.0, 1.0, 1.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// reset vars
-		memset(last, 0, sizeof(last));
-		pnum = -1;
-		en_select = -1;
-		en_move = -1;
-
-		// load
-		 load();
-		break;
-
-		// quit
-	case 27:
-		exit(0);
-		break;
-	}
+	menuAction[key](this);
 	glutPostRedisplay();
 	return;
 }

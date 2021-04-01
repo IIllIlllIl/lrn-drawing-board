@@ -4,20 +4,23 @@
 #include <cmath>
 #include "record.h"
 #include "ui.h"
+#include "creator.h"
+#include "tri_ctr.h"
 
 #define e(x) cout<<#x<<"="<<x<<endl;
 #define c(y) cout<<#y<<endl;
+#define image_num 4
 
 // menu
 record::menuEntryStruct mainMenu[] = {
-	"clear",		  '0',
-	"triangle",       '1',
-	"rectangle",      '2',
-	"line",           '3',
-	"polygon",		  '4',
-	"move",           '5',
-	"save",			  '6',
-	"load",			  '7',
+	"clear",		  0,
+	"triangle",       1,
+	"rectangle",      2,
+	"line",           3,
+	"polygon",		  4,
+	"move",           21,
+	"save",			  22,
+	"load",			  23,
 	"quit", 		  27,
 };
 int mainMenuEntries = sizeof(mainMenu) / sizeof(record::menuEntryStruct);
@@ -34,6 +37,7 @@ void ui::setMenuEntries() {
 }
 
 void ui::init() {
+	// ui
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glLineWidth(5);
 	setMenuEntries();

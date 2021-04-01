@@ -11,7 +11,7 @@
 #include <memory.h>
 #include <GL/glut.h>
 #include "record.h"
-#include "tri.h"
+#include "creator.h"
 
 class ui
 {
@@ -96,4 +96,3 @@ private:
 	}
 
 };
-

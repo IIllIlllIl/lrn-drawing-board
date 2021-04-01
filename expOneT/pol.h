@@ -20,6 +20,7 @@ class pol :public shape
 	void move(int, int);
 
 	void read();
+	void read(int&, int*);
 
 	void save();
 

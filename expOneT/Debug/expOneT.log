@@ -1,2 +1,9 @@
-﻿  ui.cpp
+﻿  record.cpp
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(221,20): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(224,21): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(240,16): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(252,8): warning C4018: “>=”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(261,20): warning C4018: “<”: 有符号/无符号不匹配
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(267,26): warning C4305: “参数”: 从“double”到“GLfloat”截断
+C:\userspace\programs\#languages\C\prog\paint\expOneT\expOneT\record.cpp(270,21): warning C4018: “<”: 有符号/无符号不匹配
   expOneT.vcxproj -> C:\userspace\programs\#languages\C\prog\paint\expOneT\Debug\expOneT.exe

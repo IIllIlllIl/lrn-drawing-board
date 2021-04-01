@@ -36,6 +36,18 @@
     <ClCompile Include="pol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tri_ctr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rec_ctr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="line_ctr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pol_ctr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="record.h">
@@ -57,6 +69,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="creator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tri_ctr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rec_ctr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="line_ctr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pol_ctr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
